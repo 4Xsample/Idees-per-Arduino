@@ -17,6 +17,10 @@ Add a place to config the webhook on the OTA page.
 Add a menu on the OTA page and on the main page to choose language and let me choose between catalan and english. The default language is catalan
 And comment it in CATALAN`
 
+P.D. Aquest readme també ha sigut generat pel ChatGPT simplement demanant el seguent promt despres d'obtenir el codi del projecte.
+
+`Mostra el codi d'un Readme.md per github explicant aquest projecte en català.`
+
 ## Requisits
 Per fer servir aquest dispositiu necessitaràs:
 - Un ESP8266
