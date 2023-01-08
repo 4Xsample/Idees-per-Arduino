@@ -33,29 +33,31 @@ const char *webhook_url = "";
 
 // Configurem l'OTA
 void setupOTA() {
-  // Definim el SSID i la contrasenya per al WiFi
+
+// Definim el SSID i la contrasenya per al WiFi
   ArduinoOTA.setHostname("rfid-reader");
   ArduinoOTA.setPassword("password");
 
-  // Comencem l'OTA
+// Comencem l'OTA
   ArduinoOTA.begin();
 }
 
 // Configurem el WiFi
 void setupWiFi() {
-  // Comencem a connectar-nos al WiFi
+
+// Comencem a connectar-nos al WiFi
   WiFi.begin(ssid, password);
 
-  // Esperem fins que ens connectem
+// Esperem fins que ens connectem
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
 
-  // Un cop connectats, imprimim la nostra IP local
+// Un cop connectats, imprimim la nostra IP local
   Serial.print("IP local: ");
   Serial.println(WiFi.localIP());
 
-  // Enviem la nostra IP local al webhook de Discord
+// Enviem la nostra IP local al webhook de Discord
   String content = "S'ha connectat un dispositiu amb l'IP " + WiFi.localIP().toString();
   sendDiscordWebhook(webhook_name, webhook_url, content);
 }
@@ -96,35 +98,38 @@ const char *webhook_url = "";
 
 // Configurem l'OTA
 void setupOTA() {
-  // Definim el SSID i la contrasenya per al WiFi
+
+// Definim el SSID i la contrasenya per al WiFi
   ArduinoOTA.setHostname("rfid-reader");
   ArduinoOTA.setPassword("password");
 
-  // Comencem l'OTA
+// Comencem l'OTA
   ArduinoOTA.begin();
 }
 
 // Configurem el WiFi
 void setupWiFi() {
-  // Comencem a connectar-nos al WiFi
+
+// Comencem a connectar-nos al WiFi
   WiFi.begin(ssid, password);
 
-  // Esperem fins que ens connectem
+// Esperem fins que ens connectem
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
 
-  // Un cop connectats, imprimim la nostra IP local
+// Un cop connectats, imprimim la nostra IP local
   Serial.print("IP local: ");
   Serial.println(WiFi.localIP());
 
-  // Enviem la nostra IP local al webhook de Discord
+// Enviem la nostra IP local al webhook de Discord
   String content = "S'ha connectat un dispositiu amb l'IP " + WiFi.localIP().toString();
   sendDiscordWebhook(webhook_name, webhook_url, content);
 }
 
 // Enviem un missatge al webhook de Discord
 void sendDiscordWebhook(const char *name, constchar *url, String content) {
+
 // Creem un client HTTP
 WiFiClient client;
 
@@ -155,6 +160,7 @@ Serial.print(line);
 
 // Funció que s'executa quan s'envia una petició al servidor web
 void handleRoot() {
+
 // Creem la pàgina HTML
 String page = "<html><head><title>Lector RFID</title></head><body>";
 
@@ -190,6 +196,7 @@ server.send(200, "text/html", page);
 
 // Funció que s'executa quan s'envia una petició POST per canviar l'idioma
 void handleSetLanguage() {
+
 // Llegim l'idioma seleccionat
 language = server.arg("language");
 
@@ -200,6 +207,7 @@ server.send(302, "text/plain", "");
 
 // Funció que s'executa quan s'envia una petició a la pàgina OTA
 void handleOTA() {
+
 // Creem la pàgina HTML
 String page = "<html><head><title>Actualització OTA</title></head><body>";
 
@@ -245,6 +253,7 @@ server.send(200, "text/html", page);
 
 // Funció que s'executa quan s'envia una petició POST per configurar el WiFi
 void handleSetWiFi() {
+
 // Llegim els paràmetres del WiFi
 ssid = server.arg("ssid").c_str();
 password = server.arg("password").c_str();
@@ -262,6 +271,7 @@ server.send(302, "text/plain", "");
 
 // Funció que s'executa quan s'envia una petició POST per configurar el webhook de Discord
 void handleSetWebhook() {
+
 // Llegim els paràmetres del webhook
 webhook_name = server.arg("webhook_name").c_str();
 webhook_url = server.arg("webhook_url").c_str();
@@ -272,6 +282,7 @@ server.send(302, "text/plain", "");
 }
 
 void setup() {
+
 // Iniciem la consola sèria
 Serial.begin(9600);
 
@@ -297,6 +308,7 @@ Serial.println("Servidor web iniciat");
 }
 
 void loop() {
+
 // Gestionem l'OTA
 ArduinoOTA.handle();
 
@@ -305,14 +317,17 @@ server.handleClient();
 
 // Miram si hi ha una targeta RFID disponible
 if (mfrc522.PICC_IsNewCardPresent()) {
+
 // Llegim la targeta
 MFRC522::PICC_Type piccType = mfrc522.PICC_ReadCardSerial();
+
 // Creem una cadena amb l'ID de la targeta
 cardID = "";
 for (byte i= 0; i < mfrc522.uid.size; i++) {
 cardID += String(mfrc522.uid.uidByte[i] < 0x10 ? "0" : "");
 cardID += String(mfrc522.uid.uidByte[i], HEX);
 }
+
 // Esperem un segon per evitar llegir la mateixa targeta de nou
 delay(1000);
 }
