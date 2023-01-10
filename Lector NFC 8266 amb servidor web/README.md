@@ -74,4 +74,3 @@ Aquest dispositiu només està destinat a ús personal i no s'ha de fer servir a
 
 ## Gràcies per passar!
 Si trobeu aquests recursos útils i voleu donar suport a la meva feina, tingueu en compte fer una donació a través de PayPal (enllaç proporcionat a la insignia de dalt d'aquest readme).
-
