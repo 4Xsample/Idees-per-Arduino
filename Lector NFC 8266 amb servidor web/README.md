@@ -72,5 +72,5 @@ Per fer actualitzacions per over-the-air, connecta't a la pàgina OTA com s'ha d
 ## Atenció
 Aquest dispositiu només està destinat a ús personal i no s'ha de fer servir amb finalitats comercials sense l'autorització prèvia del propietari. L'autor no es fa responsable dels danys causats per l'ús indegut d'aquest dispositiu.
 
-## Gràcies per passar!
-Si trobeu aquests recursos útils i voleu donar suport a la meva feina, tingueu en compte fer una donació a través de PayPal (enllaç proporcionat a la insignia de dalt d'aquest readme).
+## Disclaimer: 
+*Aquest codi s'ofereix tal com és i no es garanteix que funcioni correctament en totes les condicions. No em faig responsable dels danys que puguin resultar de l'ús d'aquesta informació. Utilitzeu-lo sota la vostra pròpia responsabilitat. Si teniu dubtes pregunteu i respondré al que pugui. Si voleu obrir proposar cambis podeu obrir fork i i voleu seguir-me, al panel del principi d'aquest readme podeu trobar links a les meves xarxes socials, Twitch i PayPal per si també voleu donar suport al meu treball.*
