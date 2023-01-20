@@ -29,4 +29,6 @@ Abans de carregar el codi a l'Arduino, assegureu-vos de configurar les següents
 ## Depuració
 Es pot utilitzar el port sèrie per veure els missatges de depuració i comprovar l'estat del programa en tot moment.
 
-Disclaimer: Aquest codi s'ofereix tal com és i no es garanteix que funcioni correctament en totes les condicions. Utilitzeu-lo sota la vostra pròpia responsabilitat. Si voleu seguir-me, podeu trobar-me a les meves xarxes socials i a Twitch. Si voleu donar suport al meu treball, teniu disponible un enllaç a PayPal al panel del principi d'aquest readme.
+
+## Disclaimer: 
+*Aquest codi s'ofereix tal com és i no es garanteix que funcioni correctament en totes les condicions. Utilitzeu-lo sota la vostra pròpia responsabilitat. Si voleu seguir-me, al panel del principi d'aquest readme podeu trobar links a les meves xarxes socials, Twitch i PayPal per si voleu donar suport al meu treball.*
