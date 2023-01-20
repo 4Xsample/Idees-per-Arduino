@@ -50,9 +50,9 @@ digitalWrite(led, HIGH); //Fa un breu flash d'una desena de segon
 delay(100);
 digitalWrite(led, LOW); //Espera 5 segons
 delay(5000);
-} else {
-digitalWrite(led, HIGH); //Encendre el LED si el canal està en directe
+} else {digitalWrite(led, HIGH); //Encendre el LED si el canal està en directe
 }
+
 } else {
 digitalWrite(led, LOW); //Apaga el LED
 delay(100);
