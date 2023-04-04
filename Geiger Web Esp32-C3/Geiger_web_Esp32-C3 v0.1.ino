@@ -6,7 +6,7 @@ const char* ssid = "nom_de_la_xarxa_wifi";
 const char* password = "contrasenya_wifi";
 
 // Configuració de la xarxa IP (si no es defineix el valor serà assignat per DHCP)
-const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
+// const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
 // const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
 // const char* subnet = "255.255.255.0"; // Màscara de subxarxa (encara no esta integrat)
 
@@ -14,12 +14,14 @@ const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
 const int comptadorPin = 2; // Canviat a pin 2 de la ESP32-C3
 
 // Variables per al comptador de radiació
-volatile int comptadorRadiacio = 0;
+// volatile int comptadorRadiacio = 0;
+int comptadorRadiacio = 0;
 unsigned long tempsRadiacio = 0;
 float cpm = 0.0;
 
 // Configuració del servidor web
-WebServer servidor(local_ip, 80); // Afegir ", gateway, subnet" en cas de voler especificar la configuració
+WebServer servidor(80); 
+// WebServer servidor(local_ip, 80, gateway, subnet); // en cas de voler especificar la configuració
 
 // Funció per gestionar la pàgina principal
 void gestionaPrincipal() {
