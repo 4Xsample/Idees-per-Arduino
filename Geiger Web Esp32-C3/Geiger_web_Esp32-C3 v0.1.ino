@@ -20,7 +20,7 @@ unsigned long tempsRadiacio = 0;
 float cpm = 0.0;
 
 // Configuració del servidor web
-WebServer servidor(80); 
+WebServer servidor(80);
 // WebServer servidor(local_ip, 80, gateway, subnet); // en cas de voler especificar la configuració
 
 // Funció per gestionar la pàgina principal
@@ -40,6 +40,10 @@ void gestionaNoTrobat() {
 // Funció que s'executa quan es detecta un impuls de radiació
 void gestionaRadiacio() {
   comptadorRadiacio++;
+// Encén el LED durant 1 segon
+  digitalWrite(LED_BUILTIN, HIGH); 
+  delay(1000);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void setup() {
