@@ -49,7 +49,8 @@ void gestionaRadiacio() {
 void setup() {
   Serial.begin(115200);
 
-  pinMode(comptadorPin, INPUT_PULLUP);
+// pinMode(comptadorPin, INPUT_PULLUP);
+  pinMode(comptadorPin, INPUT);
   attachInterrupt(digitalPinToInterrupt(comptadorPin), gestionaRadiacio, FALLING);
 
   WiFi.begin(ssid, password);
