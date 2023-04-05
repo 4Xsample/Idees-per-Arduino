@@ -2,8 +2,8 @@
 #include <WebServer.h>
 
 // Configuració de la xarxa WiFi
-const char* ssid = "nom_de_la_xarxa_wifi";
-const char* password = "contrasenya_wifi";
+const char* ssid = "4Xtest";
+const char* password = "1234567890";
 
 // Configuració de la xarxa IP (si no es defineix el valor serà assignat per DHCP)
 // const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
