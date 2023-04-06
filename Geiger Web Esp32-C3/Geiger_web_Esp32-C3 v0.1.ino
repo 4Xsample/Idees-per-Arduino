@@ -10,9 +10,6 @@ const char* password = "1234567890";
 // const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
 // const char* subnet = "255.255.255.0"; // Màscara de subxarxa (encara no esta integrat)
 
-// Pin de la placa on es connecta el comptador Geiger
-const int comptadorPin = 2; // Canviat a pin 2 de la ESP32-C3
-
 // Variables per al comptador de radiació
 // volatile int comptadorRadiacio = 0;
 int comptadorRadiacio = 0;
@@ -40,18 +37,22 @@ void gestionaNoTrobat() {
 // Funció que s'executa quan es detecta un impuls de radiació
 void gestionaRadiacio() {
   comptadorRadiacio++;
-// Encén el LED durant 1 segon
-  digitalWrite(LED_BUILTIN, HIGH); 
-  delay(1000);
-  digitalWrite(LED_BUILTIN, LOW);
 }
 
-void setup() {
-  Serial.begin(115200);
+#define SENSOR_PIN 10
 
-// pinMode(comptadorPin, INPUT_PULLUP);
-  pinMode(comptadorPin, INPUT);
-  attachInterrupt(digitalPinToInterrupt(comptadorPin), gestionaRadiacio, FALLING);
+int sensorState = LOW;
+int lastSensorState = LOW;
+unsigned long lastPulseTime = 0;
+
+
+void setup() {
+  pinMode(SENSOR_PIN, INPUT);
+  Serial.begin(9600);
+
+// pinMode(SENSOR_PIN, INPUT_PULLUP);
+  pinMode(SENSOR_PIN, INPUT);
+  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), gestionaRadiacio, FALLING);
 
   WiFi.begin(ssid, password);
   Serial.println("Connectant a la xarxa WiFi");
@@ -72,13 +73,19 @@ void setup() {
 }
 
 void loop() {
-  if (millis() - tempsRadiacio >= 60000) {
+  sensorState = digitalRead(SENSOR_PIN);
+  if (sensorState != lastSensorState) {
+    if (sensorState == HIGH) {
+      if (millis() - tempsRadiacio >= 60000) {
     cpm = comptadorRadiacio / 1.0;
     comptadorRadiacio = 0;
     tempsRadiacio = millis();
     Serial.print("CPM: ");
     Serial.println(cpm);
   }
-
+    }
+    lastPulseTime = millis();
+  }
+  lastSensorState = sensorState;
   servidor.handleClient(); // Gestió de les peticions dels clients
 }
