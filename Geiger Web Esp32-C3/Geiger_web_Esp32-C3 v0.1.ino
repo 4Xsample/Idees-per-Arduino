@@ -21,17 +21,33 @@ WebServer servidor(80);
 // WebServer servidor(local_ip, 80, gateway, subnet); // en cas de voler especificar la configuració
 
 // Funció per gestionar la pàgina principal
+// Funció per gestionar la pàgina principal
 void gestionaPrincipal() {
-  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Medidor CPM</title><style>body { font-family: Futura, sans-serif; font-size: 100px; text-align: center; }  #alert{color: red;}</style></head><body>";
+  String html = "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Radiació llegida en temps real a Palafrugell</title><style>body { font-family: Futura, sans-serif; font-size: 50px; text-align: center; background-color: #35373f; color: white; } #alert{color: red;} footer{font-size: smaller; color: #ccc;}</style></head><body>";
+  html += "<h1>Radiació llegida en temps real a Palafrugell</h1>";
   if((cpm / 151) < 0.1142){
-  html += "<h1>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+    html += "<h2>" + String(cpm / 151) + " &mu;Sv/h</h2>";
   }
   else{
-  html += "<h1  id=alert>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+    html += "<h2  id=alert>" + String(cpm / 151) + " &mu;Sv/h</h2>";
   }
+  html += "<footer><p>Aquesta és una pàgina de recerca personal, creada amb recursos molt limitats, i les dades poden no ser del tot exactes. Podeu trobar el projecte al meu GitHub <a href=\"https://github.com/4Xsample/Idees-per-Arduino/tree/main/Geiger%20Web%20Esp32-C3\">aquí</a>.</p></footer>";
   html += "</body></html>";
   servidor.send(200, "text/html", html);
 }
+
+
+// void gestionaPrincipal() {
+//  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Medidor CPM</title><style>body { font-family: Futura, sans-serif; font-size: 100px; text-align: center; }  #alert{color: red;}</style></head><body>";
+//  if((cpm / 151) < 0.1142){
+//  html += "<h1>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+//  }
+//  else{
+//  html += "<h1  id=alert>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+//  }
+//  html += "</body></html>";
+//  servidor.send(200, "text/html", html);
+// }
 
 // Funció per gestionar peticions de pàgines no existents
 void gestionaNoTrobat() {
