@@ -22,8 +22,13 @@ WebServer servidor(80);
 
 // Funció per gestionar la pàgina principal
 void gestionaPrincipal() {
-  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Medidor CPM</title><style>body { font-family: Futura, sans-serif; font-size: 100px; text-align: center; }</style></head><body>";
-  html += "<h1>" + String(cpm) + " CPM</h1>";
+  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Medidor CPM</title><style>body { font-family: Futura, sans-serif; font-size: 100px; text-align: center; }  #alert{color: red;}</style></head><body>";
+  if((cpm / 151) < 0.1142){
+  html += "<h1>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+  }
+  else{
+  html += "<h1  id=alert>" + String(cpm / 151) + " &mu;Sv/h</h1>";
+  }
   html += "</body></html>";
   servidor.send(200, "text/html", html);
 }
@@ -75,17 +80,17 @@ void setup() {
 void loop() {
   sensorState = digitalRead(SENSOR_PIN);
   if (sensorState != lastSensorState) {
-    if (sensorState == HIGH) {
       if (millis() - tempsRadiacio >= 60000) {
     cpm = comptadorRadiacio / 1.0;
     comptadorRadiacio = 0;
     tempsRadiacio = millis();
-    Serial.print("CPM: ");
-    Serial.println(cpm);
-  }
+    Serial.print("µSv/h: ");
+    Serial.println(cpm / 151 );
     }
     lastPulseTime = millis();
   }
   lastSensorState = sensorState;
   servidor.handleClient(); // Gestió de les peticions dels clients
 }
+// message.txt
+// 3 KB
