@@ -1,7 +1,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 
-// Configurar la xarxa Wi-Fi, hardcodejada directament perquè no ens agrada la privacitat ni la seguretat, mare de deu amb lo senzill que es posar aquestes coses en una llibreria externa rollo "#include <credentials-h>"
+// Configurar la xarxa Wi-Fi, hardcodejada directament perquè no ens agrada la privacitat ni la seguretat, mare de deu, amb lo senzill que es posar aquestes coses en una llibreria externa rollo "#include <credentials-h>"
 const char* ssid = "4Xtest";
 const char* password = "1234567890";
 
@@ -12,7 +12,6 @@ const char* password = "1234567890";
 
 // Sí, deixem-ho en DHCP, perquè qui necessita controlar la seva pròpia xarxa, veritat?
 
-
 // Variables per al comptador de radiació
 int comptadorRadiacio = 0; // Genial, només estem mesurant la radiació... què podria anar malament?
 unsigned long tempsRadiacio = 0;
@@ -21,6 +20,7 @@ float cpm = 0.0;
 // Configuració del servidor web
 WebServer servidor(80);
 // WebServer servidor(local_ip, 80, gateway, subnet); // en cas de voler especificar la configuració
+
 // Wiiiii, estem configurant un servidor web, perquè el món necessita més pàgines web sobre la radiació!!!
 
 // Funció per gestionar la pàgina principal
@@ -58,15 +58,17 @@ unsigned long lastPulseTime = 0;
 
 void setup() {
   pinMode(SENSOR_PIN, INPUT);
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-// pinMode(SENSOR_PIN, INPUT_PULLUP);
+// Configurem el detector de polsos.
   pinMode(SENSOR_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), gestionaRadiacio, FALLING);
 
+// Configurem la xara fent servir els parametres definits previament.
   WiFi.begin(ssid, password);
   Serial.println("Connectant a la xarxa WiFi");
 
+  // Posem una mica de codis d'error pel port de serie (el normal seria treure això del codi final però si voleu jugar-hi millor tenir-ho que no ocupa tant)
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connectant a la xarxa WiFi...");

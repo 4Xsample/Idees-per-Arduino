@@ -4,7 +4,19 @@
 
 # Medidor Geiger amb ESP32 i placa de radiació
 
-Aquest projecte consisteix en la creació d'un aparell per mesurar la radiació ionitzant, utilitzant un sensor Geiger-Müller (GM) i una placa Arduino.
+Aquest projecte proporciona una pàgina web que mostra la quantitat de radiació llegida en temps real a Palafrugell.
+
+Per realitzar aquesta tasca, s'ha utilitzat una placa ESP32-C3 i un sensor de radiació, que envia impulsos cada vegada que es detecta una partícula radiactiva.
+
+El codi ha estat escrit en C++ i s'ha utilitzat l'IDE d'Arduino per programar la placa.
+
+Per a l'enviament de les dades, s'ha utilitzat una connexió WiFi, que ha estat configurada amb les següents credencials:
+
+```
+const char* ssid = "4Xtest";
+const char* password = "1234567890";
+```
+
 
 ## Informació important
 
@@ -34,20 +46,60 @@ Les connexions són les següents:
 | Sensor GM  | Placa Arduino |
 | ---------- | ------------- |
 | Pin 1 (GND) | GND           |
-| Pin 2 (HV)  | GPIO 27       |
-| Pin 3 (SIGNAL)  | GPIO 2    |
+| Pin 2 (HV)  | 5v        |
+| Pin 3 (SIGNAL)  | GPIO 10    |
 
 ## Codi
+El codi amb el que hem treballat s'ha desenvolupat en varies fases:
 
-El codi necessari per aquest projecte es pot trobar al fitxer `Geiger_web_Esp32-C3.ino`. Aquest codi utilitza la llibreria `WiFi.h` per connectar-se a una xarxa WiFi i la llibreria `WebServer.h` per servir una pàgina web que mostra la radiació detectada.
+1. El primer codi que va funcionar es `Geiger led esp32c3.ino`, aquest codi es tremendament senzill però va servir per comprovar la forma mes practica de detectar els polsos de senyal.
 
-El codi es pot resumir en els següents passos:
+Per fer funcionar aquest codi simplement vam conectar la esp32 c3 al medidor Geiger-Müller conectant la senyal al GPIO 10 i vam conectar un led al GPIO 4 per fer mes facil veure cada cop que tenem una detecció
 
-1. Es defineixen les variables necessàries, com ara el nom de la xarxa WiFi, la contrasenya, les connexions del sensor GM, etc.
-2. Es defineixen les funcions per gestionar les peticions HTTP, com ara la pàgina principal i les peticions fallides.
-3. Es defineix la funció per gestionar les interrupcions del sensor GM, que incrementa un comptador cada vegada que es detecta radiació.
-4. A la funció `setup`, s'inicialitzen les connexions dels pins i es connecta la placa a la xarxa WiFi.
-5. A la funció `loop`, es calcula la radiació detectada en el darrer minut i s'actualitza el valor a la pàgina web.
+Es pot conectar al port de serie conectant al port COM de torn a una velositat de 115200.
+
+La gracia del codi està en comprovar l'estat del pin de senyal del Geiger-Müller i nomes saltar quan es detecta un cambi fent servir el seguent codi:
+
+```
+  sensorState = digitalRead(SENSOR_PIN);
+  if (sensorState != lastSensorState) {
+```
+
+2. El codi final projecte es pot trobar al fitxer `Geiger_web_Esp32-C3.ino`. Aquest codi utilitza la llibreria `WiFi.h` per connectar-se a una xarxa WiFi i la llibreria `WebServer.h` per servir una pàgina web que mostra la radiació detectada.
+
+El codi permet l'ús de xarxes IP estàtiques i dinàmiques, però per defecte està configurat per utilitzar DHCP. Per canviar la configuració de la xarxa, es pot modificar el següent bloc de codi:
+
+```
+// const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
+// const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
+// const char* subnet = "255.255.255.0"; // Màscara de subxarxa (encara no esta integrat) 
+```
+
+Configuració del servidor web
+El codi també inclou la configuració del servidor web, que s'inicia a l'inici del programa i s'encarrega de gestionar les peticions HTTP que arriben a la placa.
+
+```
+WebServer servidor(80);
+```
+
+Però si es vol definir la configuració de xarxa cal cambiar aquesta linea per la seguent. (que esta comentada just a sota)
+
+```
+WebServer servidor(local_ip, 80, gateway, subnet);
+```
+
+Per definir el pin al que conectarem la senyal del medidor geiger ho fem a la linea seguent:
+
+```
+#define SENSOR_PIN 10
+```
+
+Aquest programa es basa en comparar l'estat del sensor amb l'estat anterior per detectar impulsos de radiació. Això es fa a través de la funció gestionaRadiacio(), que s'executa cada vegada que es detecta un impuls.
+
+```
+  if (sensorState != lastSensorState) {
+    if (sensorState == HIGH) {
+```
 
 ## Resultat
 
