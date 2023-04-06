@@ -1,7 +1,7 @@
 #include <WiFi.h>
 #include <WebServer.h>
 
-// Configuració de la xarxa WiFi
+// Configurar la xarxa Wi-Fi, hardcodejada directament perquè no ens agrada la privacitat ni la seguretat, mare de deu amb lo senzill que es posar aquestes coses en una llibreria externa rollo "#include <credentials-h>"
 const char* ssid = "4Xtest";
 const char* password = "1234567890";
 
@@ -10,17 +10,19 @@ const char* password = "1234567890";
 // const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
 // const char* subnet = "255.255.255.0"; // Màscara de subxarxa (encara no esta integrat)
 
+// Sí, deixem-ho en DHCP, perquè qui necessita controlar la seva pròpia xarxa, veritat?
+
+
 // Variables per al comptador de radiació
-// volatile int comptadorRadiacio = 0;
-int comptadorRadiacio = 0;
+int comptadorRadiacio = 0; // Genial, només estem mesurant la radiació... què podria anar malament?
 unsigned long tempsRadiacio = 0;
 float cpm = 0.0;
 
 // Configuració del servidor web
 WebServer servidor(80);
 // WebServer servidor(local_ip, 80, gateway, subnet); // en cas de voler especificar la configuració
+// Wiiiii, estem configurant un servidor web, perquè el món necessita més pàgines web sobre la radiació!!!
 
-// Funció per gestionar la pàgina principal
 // Funció per gestionar la pàgina principal
 void gestionaPrincipal() {
   String html = "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Radiació llegida en temps real a Palafrugell</title><style>body { font-family: Futura, sans-serif; font-size: 50px; text-align: center; background-color: #35373f; color: white; } #alert{color: red;} footer{font-size: smaller; color: #ccc;}</style></head><body>";
@@ -36,26 +38,13 @@ void gestionaPrincipal() {
   servidor.send(200, "text/html", html);
 }
 
-
-// void gestionaPrincipal() {
-//  String html = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Medidor CPM</title><style>body { font-family: Futura, sans-serif; font-size: 100px; text-align: center; }  #alert{color: red;}</style></head><body>";
-//  if((cpm / 151) < 0.1142){
-//  html += "<h1>" + String(cpm / 151) + " &mu;Sv/h</h1>";
-//  }
-//  else{
-//  html += "<h1  id=alert>" + String(cpm / 151) + " &mu;Sv/h</h1>";
-//  }
-//  html += "</body></html>";
-//  servidor.send(200, "text/html", html);
-// }
-
-// Funció per gestionar peticions de pàgines no existents
+// Funció per gestionar peticions de pàgines no existents, com la quantitat de politics independentistes que hi ha al parlament.
 void gestionaNoTrobat() {
   String missatge = "Fitxer no trobat\n\n";
   servidor.send(404, "text/plain", missatge);
 }
 
-// Funció que s'executa quan es detecta un impuls de radiació
+// Funció que s'executa quan es detecta un impuls de radiació, perquè és tan divertit mesurar radiació... oi?
 void gestionaRadiacio() {
   comptadorRadiacio++;
 }
