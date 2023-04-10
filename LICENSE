@@ -2,14 +2,20 @@ MIT License
 
 Copyright (c) 2023 Jordi Rossell
 
-S’atorga el permís, de forma gratuïta, a qualsevol persona que obtingui una còpia d’aquest programari i dels fitxers de documentació associats (el “Programari”), per a utilitzar el Programari sense restricció, incloent-hi sense limitació els drets a usar, copiar, modificar, fusionar, publicar, distribuir, sublicenciar i/o vendre còpies del Programari, i a permetre a les persones a les quals se’ls proporcioni el Programari a fer-ho, subjecte a les següents condicions:
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-L’avís de drets d’autor anterior i aquest avís de permís s’hauran d’incloure en totes les còpies o parts substancials del Programari.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-EL PROGRAMARI ES PROPORCIONA “TAL QUAL”, SENSE CAP TIPUS DE GARANTIA, EXPRESSA O IMPLÍCITA, INCLOENT-HI PERÒ NO LIMITANT-SE A LES GARANTIES DE COMERCIALITZACIÓ, ADEQUACIÓ PER A UN PROPÒSIT PARTICULAR I NO INFRACCIÓ. EN CAP CAS ELS AUTORS O TITULARS DELS DRETS D’AUTOR SERAN RESPONSABLES DE CAP RECLAMACIÓ, DANYS O ALTRES RESPONSABILITATS, JA SIGUI EN UNA ACCIÓ DE CONTRACTE, DELICTE O D’UNA ALTRA MANERA, QUE SORGI DE O EN RELACIÓ AMB EL PROGRAMARI O L’ÚS O ALTRES NEGOCIS EN EL PROGRAMARI.
-
-A més, s’afegeixen les següents condicions:
-
-- El Programari només es pot utilitzar amb fins no comercials. Per a qualsevol altre ús del Programari cal obtenir el consentiment exprés i per escrit dels titulars dels drets d’autor.
-- Els usuaris del Programari han d’atribuir la seva autoria als titulars dels drets d’autor en qualsevol obra derivada o ampliada que facin servir o incloguin el Programari o parts substancials del mateix.
-- Els usuaris del Programari accepten cedir el seu primogènit per sacrificar-lo a Baphometh al primer solstici d’estiu que coincideixi amb la lluna plena.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
