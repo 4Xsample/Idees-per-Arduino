@@ -1,7 +1,7 @@
 # Roadmap
 ## Funcions de la ESPE.
 - ✓ Registrar un canvi d'estat al pin 10. 
-- ✓ Encendre un led quan es registra un canvi d'estat al pin 10 
+- ✓ Encendre un led quan es registra un canvi d'estat al pin 10 (deprecated)
 - ✓ Comptar el número de canvis d'estat en els últims 60 segons i posar-ho al port de sèrie. 
 - ✓ Connectar a una xarxa wifi usant la llibreria WiFi.h 
 - ✓ Crear un servidor web usant WebServer.h
