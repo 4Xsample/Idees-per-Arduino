@@ -33,5 +33,5 @@ Mili sieverts/hora
 Valor del voltatge de la bateria.
 Valor del voltatge de la placa solar.
 Valor de la intensitat de llum.
-- Aixecar un contenidor amb Grafana per connectar-lo a la base de dades i mirar quines són les gràfiques més interessants que es poden aconseguir a partir d'aquestes dades.
+- Aixecar un contenidor amb Grafana per connectar-lo a la base de dades, jugar una mica i mirar quines són les gràfiques més interessants que es poden aconseguir a partir d'aquestes dades.
 - Crear un servidor web que mostri gràficament de forma molt bonica informació estadística de la base de dades.
