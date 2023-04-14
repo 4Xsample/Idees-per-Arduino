@@ -26,7 +26,7 @@ WebServer servidor(80);
 // Funció per gestionar la pàgina principal
 void gestionaPrincipal() {
   String html = "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Radiació llegida en temps real a Palafrugell</title><style>body { font-family: Futura, sans-serif; font-size: 50px; text-align: center; background-color: #35373f; color: white; } #alert{color: red;} footer{font-size: smaller; color: #ccc;}</style></head><body>";
-  html += "<h1>Radiació llegida en temps real a Palafrugell</h1>";
+  html += "<h1>Radiació a Palafrugell</h1>";
   if((cpm / 151) < 0.1142){
     html += "<h2>" + String(cpm / 151) + " &mu;Sv/h</h2>";
   }
