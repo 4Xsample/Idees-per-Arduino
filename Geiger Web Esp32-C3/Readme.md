@@ -34,9 +34,9 @@ La versió actual del codi és la v0.1, la qual inclou el servidor web i mostra 
 
 ## Materials necessaris
 
-* Sensor GM RadiationD v1.1 (CAJOE)
-* Placa Arduino ESP32 C3
-* Breadboard (Opcional) i cables
+* [Sensor GM RadiationD v1.1 (CAJOE)](https://s.click.aliexpress.com/e/_Dn4AUID)
+* [Placa Arduino ESP32 C3](https://s.click.aliexpress.com/e/_DEWtkDJ)
+* [Breadboard](https://s.click.aliexpress.com/e/_DEWtkDJ) (Opcional) i cables
 * Bateria o font d'alimentació
 
 ## Esquema de connexions
