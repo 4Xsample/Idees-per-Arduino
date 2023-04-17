@@ -50,3 +50,9 @@
   
 - ✓ Aixecar un contenidor amb Grafana per connectar-lo a la base de dades, jugar una mica i mirar quines són les gràfiques més interessants que es poden aconseguir a partir d'aquestes dades.
 - ☐ Crear un servidor web que mostri gràficament de forma molt bonica informació estadística de la base de dades.
+
+## Sistema d'energia
+
+- ✓ Aconseguir una bateria decent de 3,7v (Al final he escollit una bateria [Huawei HB3X1](https://s.click.aliexpress.com/e/_Ddd0FeV) simplement per que n'he pogut reciclar una, encara estic dubtant si usar la bateria sencera o separar una cel·la per usar-la per separat)
+- ☐ Aconseguir un gestor de carrega i descarrega per bateries de 3.7v compatible amb plaques solars de 6v com per exemple una [Placa d'alimentació mòbil UPS de 5V, 2.1A](https://s.click.aliexpress.com/e/_DCTR7EV)
+- ☐ aconseguir una placa solar de 6V de mes de 10W (Necesstem una placa prou sobrada per poder seguir alimentant el projecte en dies plujosos i curts) Al final la escollida es una placa de [6V 20W 170x230mm](https://s.click.aliexpress.com/e/_DBCjdDF)
