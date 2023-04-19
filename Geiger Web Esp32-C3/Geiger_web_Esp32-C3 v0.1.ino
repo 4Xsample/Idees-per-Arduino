@@ -85,6 +85,19 @@ void setup() {
 }
 
 void loop() {
+
+  // comprovar si la connexió Wi-Fi està activa
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("Merda! connexió Wi-Fi perduda, intentant reconnectar...");
+    WiFi.begin(ssid, password);
+    // esperar fins que es torni a connectar
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(1000);
+      Serial.println("Segueixo intentant connectar però aquesta merda no funciona encara...");
+    }
+    Serial.println("Al final he pogut connectar a la p*** xarxa Wi-Fi.");
+  }
+
   sensorState = digitalRead(SENSOR_PIN);
   if (sensorState != lastSensorState) {
       if (millis() - tempsRadiacio >= 60000) {
