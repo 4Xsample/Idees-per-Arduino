@@ -15,7 +15,6 @@ const int   daylightOffset_sec = 0;
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, ntpServer, gmtOffset_sec, daylightOffset_sec);
 
-
 // Configuració de la xarxa IP (si no es defineix el valor serà assignat per DHCP)
 // const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
 // const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
@@ -66,7 +65,6 @@ int sensorState = LOW;
 int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
-
 void setup() {
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(115200);
@@ -79,7 +77,7 @@ void setup() {
   WiFi.begin(ssid, password);
   Serial.println("Connectant a la xarxa WiFi");
 
-  // Posem una mica de codis d'error pel port de serie (el normal seria treure això del codi final però si voleu jugar-hi millor tenir-ho que no ocupa tant)
+// Posem una mica de codis d'error pel port de serie (el normal seria treure això del codi final però si voleu jugar-hi millor tenir-ho que no ocupa tant)
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connectant a la xarxa WiFi...");
@@ -94,7 +92,7 @@ void setup() {
 
   servidor.begin();
 
-  // Inicialitza el client NTP i sincronitza amb el servidor NTP
+// Inicialitza el client NTP i sincronitza amb el servidor NTP
   timeClient.begin();
   timeClient.update();
 
@@ -102,11 +100,11 @@ void setup() {
 
 void loop() {
 
-  // comprovar si la connexió Wi-Fi està activa
+// comprovar si la connexió Wi-Fi està activa
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Merda! connexió Wi-Fi perduda, intentant reconnectar...");
     WiFi.begin(ssid, password);
-    // esperar fins que es torni a connectar
+// esperar fins que es torni a connectar
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
       Serial.println("Segueixo intentant connectar però aquesta merda no funciona encara...");
@@ -114,10 +112,10 @@ void loop() {
     Serial.println("Al final he pogut connectar a la p*** xarxa Wi-Fi.");
   }
 
-  // Actualitza la data i hora actual
+// Actualitza la data i hora actual
   timeClient.update();
 
-  // Obté la data i hora actual del client NTP
+// Obté la data i hora actual del client NTP
   String dataIHora = timeClient.getFormattedTime();
 
   sensorState = digitalRead(SENSOR_PIN);
