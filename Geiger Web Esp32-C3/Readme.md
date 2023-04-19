@@ -71,9 +71,9 @@ if (sensorState != lastSensorState) {
 El codi permet l'ús de xarxes IP estàtiques i dinàmiques, però per defecte està configurat per utilitzar DHCP. Per canviar la configuració de la xarxa, es pot modificar el següent bloc de codi:
 
 ```c++
-// const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
-// const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç
-// const char* subnet = "255.255.255.0"; // Màscara de subxarxa
+const char* local_ip = "192.168.1.10"; // IP estàtica de la placa
+const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç
+const char* subnet = "255.255.255.0"; // Màscara de subxarxa
 ```
 
 Configuració del servidor web
