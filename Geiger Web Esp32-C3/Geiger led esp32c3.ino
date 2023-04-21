@@ -13,7 +13,7 @@ unsigned long lastPulseTime = 0;
 void setup() {
   pinMode(SENSOR_PIN, INPUT);
   pinMode(LED_PIN, OUTPUT);
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.println("Sensor de radiació Geiger iniciat.");
 }
 

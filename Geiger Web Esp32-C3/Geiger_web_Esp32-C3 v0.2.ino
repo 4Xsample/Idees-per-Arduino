@@ -57,6 +57,7 @@ void gestionaNoTrobat() {
 // Funció que s'executa quan es detecta un impuls de radiació, perquè és tan divertit mesurar radiació... oi?
 void gestionaRadiacio() {
   comptadorRadiacio++;
+  Serial.println("Pita que la cosa es radioactiva!");
 }
 
 #define SENSOR_PIN 10
