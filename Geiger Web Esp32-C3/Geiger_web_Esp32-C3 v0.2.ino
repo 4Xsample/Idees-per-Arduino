@@ -1,20 +1,11 @@
 #include <WiFi.h>
 #include <WebServer.h>
-#include <NTPClient.h>
+//#include <NTPClient.h>
 #include "credentials.h"
 
 // Configurar la xarxa Wi-Fi, al final, un mes despres hem decidit agafar les dades del puto credentials.h
 const char* ssid = WIFI_SSID;
 const char* password = WIFI_PASSWORD;
-
-// Configuració del servidor NTP, escolti jove, que te hora?
-const char* ntpServer = "pool.ntp.org";
-const long  gmtOffset_sec = 3600;
-const int   daylightOffset_sec = 0;
-
-// Configuració del client NTP
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, ntpServer, gmtOffset_sec, daylightOffset_sec);
 
 // Configuració de la xarxa IP (si no es defineix el valor serà assignat per DHCP)
 
@@ -67,6 +58,7 @@ int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
 void setup() {
+
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
 
@@ -87,13 +79,12 @@ void setup() {
   Serial.println("Connectat a la xarxa WiFi");
   Serial.print("Adreça IP: ");
   Serial.println(WiFi.localIP());
+
   servidor.on("/", gestionaPrincipal);
   servidor.onNotFound(gestionaNoTrobat);
+
   servidor.begin();
 
-// Inicialitza el client NTP i sincronitza amb el servidor NTP
-  timeClient.begin();
-  timeClient.update();
 }
 
 void loop() {
@@ -102,7 +93,6 @@ void loop() {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Merda! connexió Wi-Fi perduda, intentant reconnectar...");
     WiFi.begin(ssid, password);
-
 // esperar fins que es torni a connectar
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
@@ -110,12 +100,6 @@ void loop() {
     }
     Serial.println("Al final he pogut connectar a la p*** xarxa Wi-Fi.");
   }
-
-// Actualitza la data i hora actual
-  timeClient.update();
-
-// Obté la data i hora actual del client NTP
-  String dataIHora = timeClient.getFormattedTime();
 
   sensorState = digitalRead(SENSOR_PIN);
   if (sensorState != lastSensorState) {
@@ -125,13 +109,11 @@ void loop() {
     tempsRadiacio = millis();
     Serial.print("µSv/h: ");
     Serial.println(cpm / 151 );
-    Serial.println("Data i hora actual: " + dataIHora);
     }
     lastPulseTime = millis();
   }
   lastSensorState = sensorState;
   servidor.handleClient(); // Gestió de les peticions dels clients
 }
-
 // message.txt
 // 3 KB
