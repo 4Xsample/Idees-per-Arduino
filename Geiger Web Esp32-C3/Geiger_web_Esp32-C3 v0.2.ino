@@ -87,16 +87,13 @@ void setup() {
   Serial.println("Connectat a la xarxa WiFi");
   Serial.print("Adreça IP: ");
   Serial.println(WiFi.localIP());
-
   servidor.on("/", gestionaPrincipal);
   servidor.onNotFound(gestionaNoTrobat);
-
   servidor.begin();
 
 // Inicialitza el client NTP i sincronitza amb el servidor NTP
   timeClient.begin();
   timeClient.update();
-
 }
 
 void loop() {
@@ -105,6 +102,7 @@ void loop() {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Merda! connexió Wi-Fi perduda, intentant reconnectar...");
     WiFi.begin(ssid, password);
+
 // esperar fins que es torni a connectar
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
@@ -134,5 +132,6 @@ void loop() {
   lastSensorState = sensorState;
   servidor.handleClient(); // Gestió de les peticions dels clients
 }
+
 // message.txt
 // 3 KB
