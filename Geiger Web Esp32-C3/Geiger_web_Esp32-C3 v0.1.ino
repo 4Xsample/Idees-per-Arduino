@@ -55,7 +55,6 @@ int sensorState = LOW;
 int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
-
 void setup() {
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(115200);
