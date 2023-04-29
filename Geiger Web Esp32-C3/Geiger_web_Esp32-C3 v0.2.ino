@@ -1,6 +1,5 @@
 #include <WiFi.h>
 #include <WebServer.h>
-//#include <NTPClient.h>
 #include "credentials.h"
 
 // Configurar la xarxa Wi-Fi, al final, un mes despres hem decidit agafar les dades del puto credentials.h

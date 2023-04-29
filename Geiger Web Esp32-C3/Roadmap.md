@@ -25,7 +25,7 @@
     
     - Valor de la intensitat de llum.
 
-- ✓ Inlcoure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.
+- ☐ Inlcoure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.
 - ☐ Incloure una comanda per poder reiniciar la ESPE usant una comanda per Serial
 - ☐ Incloure una memòria que reculli cada valor i el guardi si no pot enviar les dades a la base de dades per poder enviar les dades tan bon punt tingui accés a la base de dades.
 - ☐ Incloure un watchdog que revisi que el codi no s'ha bloquejat i si s'ha bloquejat reiniciar el codi.
@@ -56,3 +56,4 @@
 - ✓ Aconseguir una bateria decent de 3,7v (Al final he escollit una bateria [Huawei HB3X1](https://s.click.aliexpress.com/e/_Ddd0FeV) simplement per que n'he pogut reciclar una, encara estic dubtant si usar la bateria sencera o separar una cel·la per usar-la per separat)
 - ✓ Aconseguir un gestor de carrega i descarrega per bateries de 3.7v compatible amb plaques solars de 6v com per exemple una [Placa d'alimentació mòbil UPS de 5V, 2.1A](https://s.click.aliexpress.com/e/_DCTR7EV)
 - ✓ aconseguir una placa solar de 6V de mes de 10W (Necesstem una placa prou sobrada per poder seguir alimentant el projecte en dies plujosos i curts) Al final la escollida es una placa de [6V 20W 170x230mm](https://s.click.aliexpress.com/e/_DBCjdDF)
+- ☐ Muntar els divisors de voltatge per poder reduir el voltatge a uns valors registrables pels pins analogics de la ESP32C3

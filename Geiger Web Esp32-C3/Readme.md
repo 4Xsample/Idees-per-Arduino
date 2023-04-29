@@ -10,12 +10,8 @@ Per executar aquesta tasca, s'ha utilitzat una placa ESP32-C3 i un sensor de rad
 
 El codi ha estat escrit en C++ i s'ha fet servir l'IDE d'Arduino per programar la placa.
 
-Per a l'enviament de les dades, s'ha utilitzat una connexió WiFi, que ha estat configurada amb les següents credencials:
+Per a l'enviament de les dades, s'ha utilitzat una connexió WiFi, que s'ha de configurar modificant larxiu `credentials.h`.
 
-```c++
-const char* ssid = "4Xtest";
-const char* password = "1234567890";
-```
 
 ## Informació important
 
@@ -66,7 +62,7 @@ sensorState = digitalRead(SENSOR_PIN);
 if (sensorState != lastSensorState) {
 ```
 
-2. El codi del projecte es pot trobar al fitxer 'Geiger_web_Esp32-C3 v0.1.ino'. Aquest codi utilitza la llibreria 'WiFi.h' per connectar-se a una xarxa WiFi i la llibreria 'WebServer.h' per servir una pàgina web que mostra la radiació detectada.
+2. El codi del projecte es pot trobar al fitxer 'Geiger_web_Esp32-C3 v0.2.ino'. Aquest codi utilitza la llibreria 'WiFi.h' per connectar-se a una xarxa WiFi i la llibreria 'WebServer.h' per servir una pàgina web que mostra la radiació detectada.
 
 El codi permet l'ús de xarxes IP estàtiques i dinàmiques, però per defecte està configurat per utilitzar DHCP. Per canviar la configuració de la xarxa, es pot modificar el següent bloc de codi:
 
