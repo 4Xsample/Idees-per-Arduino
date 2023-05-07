@@ -70,7 +70,7 @@ int d_hour ;
 int d_min ;
 int d_sec ;
 int d_wday ;
-static const char *weekStr[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"}; //3文字の英字
+static const char *weekStr[7] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 
 const char* ntpServer = "fr.pool.ntp.org";
 const long  gmtOffset_sec = 7200;
@@ -87,6 +87,7 @@ void wifisyncjst() {
   while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET) {
     delay(500);
   }
+}
 
 void setup() {
 
