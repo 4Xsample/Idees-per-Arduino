@@ -76,7 +76,17 @@ const char* ntpServer = "fr.pool.ntp.org";
 const long  gmtOffset_sec = 7200;
 const int   daylightOffset_sec = 0;
 
-void wifisyncjst();
+
+// Cridem la funció que obté la data i hora del servidor NTP
+void wifisyncjst() {
+  // Sincronització de l’rellotge intern amb CEST
+  // Obté CEST a traves de NTP
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  delay(500);
+  // Espera fins que l’hora de l’rellotge intern coincideixi amb l’hora NTP
+  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET) {
+    delay(500);
+  }
 
 void setup() {
 
@@ -106,8 +116,6 @@ void setup() {
 
   servidor.begin();
 
-// Cridem la funció que obté la data i hora del servidor NTP
-wifisyncjst();
 
 }
 
