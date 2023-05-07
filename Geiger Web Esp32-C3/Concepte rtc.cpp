@@ -76,6 +76,8 @@ const char* ntpServer = "fr.pool.ntp.org";
 const long  gmtOffset_sec = 7200;
 const int   daylightOffset_sec = 0;
 
+void wifisyncjst();
+
 void setup() {
 
   pinMode(SENSOR_PIN, INPUT);
