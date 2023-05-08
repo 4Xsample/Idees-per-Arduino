@@ -1,4 +1,4 @@
-#include <WiFi.h>
+// #include <WiFi.h> ja està inclosa a WebServer.h
 #include <WebServer.h>
 #include "credentials.h"
 
@@ -94,14 +94,14 @@ void loop() {
     WiFi.begin(ssid, password);
 // esperar fins que es torni a connectar
     while (WiFi.status() != WL_CONNECTED) {
-      delay(1000);
+      delay(1000); // aquest delay també pot afectar el "problema" de no actualitzar cada minut?
       Serial.println("Segueixo intentant connectar però aquesta merda no funciona encara...");
     }
     Serial.println("Al final he pogut connectar a la p*** xarxa Wi-Fi.");
   }
 
   sensorState = digitalRead(SENSOR_PIN);
-  if (sensorState != lastSensorState) {
+  if (sensorState != lastSensorState) { // aquesta condició és previa a >60000 ... pot provocar això el "problema" de no actualitzar cada minut?
       if (millis() - tempsRadiacio >= 60000) {
     cpm = comptadorRadiacio / 1.0;
     comptadorRadiacio = 0;
