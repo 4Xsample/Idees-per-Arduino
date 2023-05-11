@@ -91,9 +91,11 @@ void wifisyncjst() {
   }
 
 // Declarem el link del webhook de discord
-Discord_Webhook discord;
-String DISCORD_WEBHOOK = WEBHOOK_LINK;
-
+  const char* DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1234567890/abcdefg";
+  Discord_Webhook discord; // Create a Discord_Webhook object
+  // How to get the Webhook URL
+  // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+  String DISCORD_WEBHOOK = "https://discord.com/api/webhooks/id/token";
 }
 
 void setup() {
