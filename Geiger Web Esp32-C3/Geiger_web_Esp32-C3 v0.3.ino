@@ -65,21 +65,22 @@ unsigned long lastPulseTime = 0;
 
 // Declaracions de variables per NTP
 struct tm * tm;
-int d_mon;
-int d_mday;
-int d_hour;
-int d_min;
-int d_sec;
-int d_wday;
+  int d_year;
+  int d_mon;
+  int d_mday;
+  int d_hour;
+  int d_min;
+  int d_sec;
+  int d_wday;
 static
-const char * weekStr[7] = {
-  "Sun",
-  "Mon",
-  "Tue",
-  "Wed",
-  "Thu",
-  "Fri",
-  "Sat"
+  const char * weekStr[7] = {
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat"
 };
 
 const char * ntpServer = "fr.pool.ntp.org";
@@ -171,13 +172,14 @@ void loop() {
       d_min = tm -> tm_min;
       d_sec = tm -> tm_sec;
       d_wday = tm -> tm_wday;
+      d_year = timeinfo.tm_year + 1900;
       // Formata els valors de la data i hora en cadenes de text
       char ts[80];
       char ds[80];
       char dts[80];
  //     sprintf(ds, "%02d-%02d %s", d_mon, d_mday, weekStr[d_wday]);
  //     sprintf(ts, "%02d:%02d:%02d", d_hour, d_min, d_sec);
-      sprintf(dts, "%02d-%02d %02d:%02d:%02d", d_mday, d_mon, d_hour, d_min, d_sec);
+      sprintf(dts, "%02d/%02d/%02d %02d:%02d:%02d", d_mday, d_mon, d_year, d_hour, d_min, d_sec);
       // Imprimeix la data i hora al port de serie
       Serial.print("Data: ");
       Serial.print(dts);
