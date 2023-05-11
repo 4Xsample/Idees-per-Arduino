@@ -89,14 +89,13 @@ void wifisyncjst() {
   while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET) {
     delay(500);
   }
+}
 
 // Declarem el link del webhook de discord
-  const char* DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1234567890/abcdefg";
   Discord_Webhook discord; // Create a Discord_Webhook object
   // How to get the Webhook URL
   // https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
   String DISCORD_WEBHOOK = "https://discord.com/api/webhooks/id/token";
-}
 
 void setup() {
 
@@ -125,7 +124,8 @@ discord.begin(DISCORD_WEBHOOK);
   Serial.println(WiFi.localIP());
   discord.send("Connectat a la xarxa WiFi");
   discord.send("Adreça IP: ");
-  discord.send(WiFi.localIP());
+  discord.send(WiFi.localIP().toString());
+
 
   servidor.on("/", gestionaPrincipal);
   servidor.onNotFound(gestionaNoTrobat);
@@ -156,7 +156,7 @@ void loop() {
     Serial.print("µSv/h: ");
     discord.send("µSv/h: ");
     Serial.println(cpm / 151 );
-    discord.send(cpm / 151 );
+    discord.send(String(cpm / 151));
   // Obté el temps actual en format time_t
   time_t t = time(NULL);
   // Converteix el temps time_t a una estructura tm
