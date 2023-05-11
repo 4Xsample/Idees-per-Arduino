@@ -109,6 +109,17 @@ void setup() {
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
 
+    // Obté el temps actual en format time_t
+    time_t t = time(NULL);
+    // Assigna els valors dels components de la data i hora a les variables corresponents
+    d_mon = timeinfo.tm_mon + 1; // mes actual
+    d_mday = timeinfo.tm_mday; // dia del mes actual
+    d_hour = timeinfo.tm_hour; // hora actual
+    d_min = timeinfo.tm_min; // minut actual
+    d_sec = timeinfo.tm_sec; // segon actual
+    d_wday = timeinfo.tm_wday; // dia de la setmana actual
+    d_year = timeinfo.tm_year + 1900; // any actual
+
   // Inicialitzem el webhook de discord
   discord.begin(DISCORD_WEBHOOK);
 
@@ -162,16 +173,16 @@ void loop() {
       Serial.println(cpm / 151);
 //      discord.send(String(cpm / 151));
       discord.send("µSv/h: " + String(cpm / 151));
-      // Obté el temps actual en format time_t
-      time_t t = time(NULL);
-      // Assigna els valors dels components de la data i hora a les variables corresponents
-      d_mon = timeinfo.tm_mon + 1; // mes actual
-      d_mday = timeinfo.tm_mday; // dia del mes actual
-      d_hour = timeinfo.tm_hour; // hora actual
-      d_min = timeinfo.tm_min; // minut actual
-      d_sec = timeinfo.tm_sec; // segon actual
-      d_wday = timeinfo.tm_wday; // dia de la setmana actual
-      d_year = timeinfo.tm_year + 1900; // any actual
+ //      // Obté el temps actual en format time_t
+ //     time_t t = time(NULL);
+ //     // Assigna els valors dels components de la data i hora a les variables corresponents
+ //     d_mon = timeinfo.tm_mon + 1; // mes actual
+ //     d_mday = timeinfo.tm_mday; // dia del mes actual
+ //     d_hour = timeinfo.tm_hour; // hora actual
+ //     d_min = timeinfo.tm_min; // minut actual
+ //     d_sec = timeinfo.tm_sec; // segon actual
+ //     d_wday = timeinfo.tm_wday; // dia de la setmana actual
+ //     d_year = timeinfo.tm_year + 1900; // any actual
       // Formata els valors de la data i hora en cadenes de text
       char ts[80];
       char ds[80];
