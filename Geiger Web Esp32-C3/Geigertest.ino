@@ -5,6 +5,8 @@
 // Llibreries per muntar el client de NTP
 #include <esp_sntp.h>
 #include <TimeLib.h>
+// Llibreria per poder enviar missatges de debug al discord 
+#include <Discord_WebHook.h>
 // Llibreria que conté les credencials per configurar la nostre ESPE
 #include "credentials.h"
 
@@ -87,12 +89,20 @@ void wifisyncjst() {
   while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET) {
     delay(500);
   }
+
+// Declarem el link del webhook de discord
+Discord_Webhook discord;
+String DISCORD_WEBHOOK = WEBHOOK_LINK;
+
 }
 
 void setup() {
 
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
+
+// Inicialitzem el webhook de discord
+discord.begin(DISCORD_WEBHOOK);
 
 // Configurem el detector de polsos.
   pinMode(SENSOR_PIN, INPUT);
@@ -111,12 +121,13 @@ void setup() {
   Serial.println("Connectat a la xarxa WiFi");
   Serial.print("Adreça IP: ");
   Serial.println(WiFi.localIP());
+  discord.send("Connectat a la xarxa WiFi");
+  discord.send("Adreça IP: ");
+  discord.send(WiFi.localIP());
 
   servidor.on("/", gestionaPrincipal);
   servidor.onNotFound(gestionaNoTrobat);
-
   servidor.begin();
-
 
 }
 
@@ -141,7 +152,9 @@ void loop() {
     comptadorRadiacio = 0;
     tempsRadiacio = millis();
     Serial.print("µSv/h: ");
+    discord.send("µSv/h: ");
     Serial.println(cpm / 151 );
+    discord.send(cpm / 151 );
   // Obté el temps actual en format time_t
   time_t t = time(NULL);
   // Converteix el temps time_t a una estructura tm
@@ -159,7 +172,9 @@ void loop() {
   sprintf(ts,"%02d:%02d:%02d",d_hour,d_min,d_sec);
   // Imprimeix la data i hora al port de serie
   Serial.print("Hora: ");
+  discord.send("Hora: ");
   Serial.println(ts);
+  discord.send(ts);
 
     }
     lastPulseTime = millis();

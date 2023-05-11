@@ -12,4 +12,7 @@
 #define DB_USER "usuari_de_la_base_de_dades"  // Nom d'usuari de la base de dades
 #define DB_PASSWORD "contrasenya_de_la_base_de_dades"  // Contrasenya de l'usuari de la base de dades
 
+// Definim el webhook al que enviar informació de debug
+#define WEBHOOK_LINK "https://discord.com/api/webhooks/id/token" // Link del webhook
+
 #endif

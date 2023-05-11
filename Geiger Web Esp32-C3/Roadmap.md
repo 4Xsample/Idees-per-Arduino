@@ -31,6 +31,7 @@
 - ☐ Incloure un watchdog que revisi que el codi no s'ha bloquejat i si s'ha bloquejat reiniciar el codi.
 - ✓ Afegir un bloc de codi al bucle principal que comprovi l'estat de la connexió Wi-Fi i, en cas de pèrdua de senyal, intenti reconnectar-se.
 - ☐ Afegir una pàgina d'administració on poder reiniciar l'ESPE manualment.
+- ☐ Enviar missatges de debug amb el serial al discord a un canal dedicat pel tema.
 
 ## Funcions del Data Collector
 - ✓ Aixecar una base de dades en un contenidor per recollir les dades.
