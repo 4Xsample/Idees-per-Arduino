@@ -64,22 +64,24 @@ int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
 // Declaracions de variables per NTP
-struct tm * tm;
-int d_mon;
-int d_mday;
-int d_hour;
-int d_min;
-int d_sec;
-int d_wday;
+//struct tm * tm;
+  struct tm timeinfo; // aquesta és la variable correcta
+    int d_mon;
+    int d_mday;
+    int d_hour;
+    int d_min;
+    int d_sec;
+    int d_wday;
+    int d_year;
 static
-const char * weekStr[7] = {
-  "Sun",
-  "Mon",
-  "Tue",
-  "Wed",
-  "Thu",
-  "Fri",
-  "Sat"
+    const char * weekStr[7] = {
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
 };
 
 const char * ntpServer = "fr.pool.ntp.org";
@@ -162,22 +164,21 @@ void loop() {
       discord.send("µSv/h: " + String(cpm / 151));
       // Obté el temps actual en format time_t
       time_t t = time(NULL);
-      // Converteix el temps time_t a una estructura tm
-      tm = localtime( & t);
       // Assigna els valors dels components de la data i hora a les variables corresponents
-      d_mon = tm -> tm_mon + 1;
-      d_mday = tm -> tm_mday;
-      d_hour = tm -> tm_hour;
-      d_min = tm -> tm_min;
-      d_sec = tm -> tm_sec;
-      d_wday = tm -> tm_wday;
+      d_mon = timeinfo.tm_mon + 1; // mes actual
+      d_mday = timeinfo.tm_mday; // dia del mes actual
+      d_hour = timeinfo.tm_hour; // hora actual
+      d_min = timeinfo.tm_min; // minut actual
+      d_sec = timeinfo.tm_sec; // segon actual
+      d_wday = timeinfo.tm_wday; // dia de la setmana actual
+      d_year = timeinfo.tm_year + 1900; // any actual
       // Formata els valors de la data i hora en cadenes de text
       char ts[80];
       char ds[80];
       char dts[80];
  //     sprintf(ds, "%02d-%02d %s", d_mon, d_mday, weekStr[d_wday]);
  //     sprintf(ts, "%02d:%02d:%02d", d_hour, d_min, d_sec);
-      sprintf(dts, "%02d-%02d %02d:%02d:%02d", d_mday, d_mon, d_hour, d_min, d_sec);
+      sprintf(dts, "%02d/%02d/%02d %02d:%02d:%02d", d_mday, d_mon, d_year, d_hour, d_min, d_sec);
       // Imprimeix la data i hora al port de serie
       Serial.print("Data: ");
       Serial.print(dts);
