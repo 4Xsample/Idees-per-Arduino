@@ -73,6 +73,15 @@ void setTime(int yr, int month, int mday, int hr, int minute, int sec, int isDst
   settimeofday(&now, NULL);
 }
 
+String getFormattedTime(){
+  char buffer[20];
+  tm currentTime = getLocalTime();
+  strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", &currentTime);
+  return String(buffer);
+}
+
+String currentDateTime = getFormattedTime();
+
 // Variables per al comptador de radiació
 int comptadorRadiacio = 0; // Genial, només estem mesurant la radiació... què podria anar malament?
 unsigned long tempsRadiacio = 0;
