@@ -3,8 +3,9 @@
  // Llibreria per muntar un servidor web
 #include <WebServer.h>
  // Llibreries per muntar el client de NTP
-#include <esp_sntp.h>
-#include <TimeLib.h>
+#include "time.h"
+//#include <esp_sntp.h>
+//#include <TimeLib.h>
  // Llibreria per poder enviar missatges de debug al discord 
 #include <Discord_WebHook.h>
  // Llibreria que conté les credencials per configurar la nostre ESPE
@@ -25,6 +26,52 @@ const char * password = WIFI_PASSWORD;
 WebServer servidor(80); // En cas d'usar DHCP
 // WebServer servidor(local_ip, 80, gateway, subnet); // en cas de no usar DHCP
 // Wiiiii, estem configurant un servidor web, perquè el món necessita més pàgines web sobre la radiació!!!
+
+//Aqui començem a merdejar amb l'NTC
+void setTimezone(String timezone){
+  Serial.printf("  Setting Timezone to %s\n",timezone.c_str());
+  setenv("TZ",timezone.c_str(),1);  //  Now adjust the TZ.  Clock settings are adjusted to show the new local time
+  tzset();
+}
+
+void initTime(String timezone){
+  struct tm timeinfo;
+
+  Serial.println("Setting up time");
+  configTime(0, 0, "pool.ntp.org");    // First connect to NTP server, with 0 TZ offset
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("  Failed to obtain time");
+    return;
+  }
+  Serial.println("  Got the time from NTP");
+  // Now we can set the real timezone
+  setTimezone(timezone);
+}
+
+void printLocalTime(){
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time 1");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S zone %Z %z ");
+}
+
+void setTime(int yr, int month, int mday, int hr, int minute, int sec, int isDst){
+  struct tm tm;
+
+  tm.tm_year = yr - 1900;   // Set date
+  tm.tm_mon = month-1;
+  tm.tm_mday = mday;
+  tm.tm_hour = hr;      // Set time
+  tm.tm_min = minute;
+  tm.tm_sec = sec;
+  tm.tm_isdst = isDst;  // 1 or 0
+  time_t t = mktime(&tm);
+  Serial.printf("Setting time: %s", asctime(&tm));
+  struct timeval now = { .tv_sec = t };
+  settimeofday(&now, NULL);
+}
 
 // Variables per al comptador de radiació
 int comptadorRadiacio = 0; // Genial, només estem mesurant la radiació... què podria anar malament?
@@ -63,43 +110,6 @@ int sensorState = LOW;
 int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
-// Declaracions de variables per NTP
-//struct tm * tm;
-  struct tm timeinfo; // aquesta és la variable correcta
-    int d_mon;
-    int d_mday;
-    int d_hour;
-    int d_min;
-    int d_sec;
-    int d_wday;
-    int d_year;
-static
-    const char * weekStr[7] = {
-      "Sun",
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat"
-};
-
-const char * ntpServer = "fr.pool.ntp.org";
-const long gmtOffset_sec = 7200;
-const int daylightOffset_sec = 0;
-
-// Cridem la funció que obté la data i hora del servidor NTP
-void wifisyncjst() {
-  // Sincronització de l’rellotge intern amb CEST
-  // Obté CEST a traves de NTP
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  delay(500);
-  // Espera fins que l’hora de l’rellotge intern coincideixi amb l’hora NTP
-  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET) {
-    delay(500);
-  }
-}
-
 // Declarem el link del webhook de discord
 Discord_Webhook discord;
 String DISCORD_WEBHOOK = WEBHOOK_LINK;
@@ -109,16 +119,9 @@ void setup() {
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
 
-    // Obté el temps actual en format time_t
-    time_t t = time(NULL);
-    // Assigna els valors dels components de la data i hora a les variables corresponents
-    d_mon = timeinfo.tm_mon + 1; // mes actual
-    d_mday = timeinfo.tm_mday; // dia del mes actual
-    d_hour = timeinfo.tm_hour; // hora actual
-    d_min = timeinfo.tm_min; // minut actual
-    d_sec = timeinfo.tm_sec; // segon actual
-    d_wday = timeinfo.tm_wday; // dia de la setmana actual
-    d_year = timeinfo.tm_year + 1900; // any actual
+//Seguim configurant NTC
+  initTime("WET0WEST,M3.5.0/1,M10.5.0");   // Set for Melbourne/AU
+  printLocalTime();
 
   // Inicialitzem el webhook de discord
   discord.begin(DISCORD_WEBHOOK);
@@ -149,7 +152,7 @@ void setup() {
 }
 
 void loop() {
-
+  int i;
   // comprovar si la connexió Wi-Fi està activa
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Merda! connexió Wi-Fi perduda, intentant reconnectar...");
@@ -173,23 +176,7 @@ void loop() {
       Serial.println(cpm / 151);
 //      discord.send(String(cpm / 151));
       discord.send("µSv/h: " + String(cpm / 151));
- //      // Obté el temps actual en format time_t
- //     time_t t = time(NULL);
- //     // Assigna els valors dels components de la data i hora a les variables corresponents
- //     d_mon = timeinfo.tm_mon + 1; // mes actual
- //     d_mday = timeinfo.tm_mday; // dia del mes actual
- //     d_hour = timeinfo.tm_hour; // hora actual
- //     d_min = timeinfo.tm_min; // minut actual
- //     d_sec = timeinfo.tm_sec; // segon actual
- //     d_wday = timeinfo.tm_wday; // dia de la setmana actual
- //     d_year = timeinfo.tm_year + 1900; // any actual
-      // Formata els valors de la data i hora en cadenes de text
-      char ts[80];
-      char ds[80];
-      char dts[80];
- //     sprintf(ds, "%02d-%02d %s", d_mon, d_mday, weekStr[d_wday]);
- //     sprintf(ts, "%02d:%02d:%02d", d_hour, d_min, d_sec);
-      sprintf(dts, "%02d/%02d/%02d %02d:%02d:%02d", d_mday, d_mon, d_year, d_hour, d_min, d_sec);
+
       // Imprimeix la data i hora al port de serie
       Serial.print("Data: ");
       Serial.print(dts);
