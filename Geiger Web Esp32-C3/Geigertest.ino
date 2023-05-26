@@ -73,14 +73,16 @@ void setTime(int yr, int month, int mday, int hr, int minute, int sec, int isDst
   settimeofday(&now, NULL);
 }
 
-String getFormattedTime(){
-  char buffer[20];
-  tm currentTime = getLocalTime();
-  strftime(buffer, sizeof(buffer), "%d/%m/%Y %H:%M:%S", &currentTime);
-  return String(buffer);
+String getFormattedTime() {
+  tm currentTime; // crea una estructura tm
+  getLocalTime(&currentTime, 1000); // passa el punter i el temps màxim
+  char timeStringBuff[50]; //50 chars should be enough
+  strftime(timeStringBuff, sizeof(timeStringBuff), "%A, %B %d %Y %H:%M:%S", &currentTime);
+  return String(timeStringBuff);
 }
 
-String currentDateTime = getFormattedTime();
+
+  String currentDateTime = getFormattedTime();
 
 // Variables per al comptador de radiació
 int comptadorRadiacio = 0; // Genial, només estem mesurant la radiació... què podria anar malament?
@@ -180,6 +182,7 @@ void loop() {
       cpm = comptadorRadiacio / 1.0;
       comptadorRadiacio = 0;
       tempsRadiacio = millis();
+      String dts = getFormattedTime(); // guarda la data i hora actuals
       Serial.print("µSv/h: ");
  //     discord.send("µSv/h: ");
       Serial.println(cpm / 151);
