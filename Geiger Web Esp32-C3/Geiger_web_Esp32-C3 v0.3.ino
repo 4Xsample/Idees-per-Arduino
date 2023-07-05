@@ -108,6 +108,19 @@ void setup() {
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
 
+  void comandaReset() {
+  if (Serial.available() > 0) {
+    String command = Serial.readStringUntil('\n'); // Llegim tota l'entrada per serial fins al primer canvi de linia
+    command.trim(); // Eliminem espais en blanc
+
+    if (command.equals("resetEspe")) { // Definim la comanda per a reset
+      Serial.println("Reiniciant la ESPE...");
+      delay(1000); // Petiti delay per a poder veure el missatge
+      ESP.restart(); // Reinici de la ESPE
+    }
+  }
+}
+
   // Inicialitzem el webhook de discord
   discord.begin(DISCORD_WEBHOOK);
 
@@ -137,6 +150,8 @@ void setup() {
 }
 
 void loop() {
+
+  comandaReset(); // Comprovem si s'ha introduit la comanda de reset
 
   // comprovar si la connexió Wi-Fi està activa
   if (WiFi.status() != WL_CONNECTED) {
