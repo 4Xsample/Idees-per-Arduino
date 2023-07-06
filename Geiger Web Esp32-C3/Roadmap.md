@@ -26,9 +26,9 @@
     - Valor de la intensitat de llum.
 
 - ☐ Incloure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.(hem optat per ntp)
-- ✓ Incloure una comanda per poder reiniciar la ESPE usant una comanda per Serial
+- ~ Incloure una comanda per poder reiniciar la ESPE usant una comanda per Serial
 - ☐ Incloure una memòria que reculli cada valor i el guardi si no pot enviar les dades a la base de dades per poder enviar les dades tan bon punt tingui accés a la base de dades.
-- ☐ Incloure un watchdog que revisi que el codi no s'ha bloquejat i si s'ha bloquejat reiniciar el codi.
+- ~ Incloure un watchdog que revisi que el codi no s'ha bloquejat i si s'ha bloquejat reiniciar el codi.
 - ✓ Afegir un bloc de codi al bucle principal que comprovi l'estat de la connexió Wi-Fi i, en cas de pèrdua de senyal, intenti reconnectar-se.
 - ☐ Afegir una pàgina d'administració on poder reiniciar l'ESPE manualment.
 - ✓ Enviar missatges de debug amb el serial al discord a un canal dedicat pel tema.
