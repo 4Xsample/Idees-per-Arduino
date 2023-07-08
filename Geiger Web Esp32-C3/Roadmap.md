@@ -27,6 +27,7 @@
 
 - ☐ Incloure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.(hem optat per ntp)
 - ~ Incloure una comanda per poder reiniciar la ESPE usant una comanda per Serial
+- ☐ Incloure un polsador per a reset
 - ☐ Incloure una memòria que reculli cada valor i el guardi si no pot enviar les dades a la base de dades per poder enviar les dades tan bon punt tingui accés a la base de dades.
 - ~ Incloure un watchdog que revisi que el codi no s'ha bloquejat i si s'ha bloquejat reiniciar el codi.
 - ✓ Afegir un bloc de codi al bucle principal que comprovi l'estat de la connexió Wi-Fi i, en cas de pèrdua de senyal, intenti reconnectar-se.
