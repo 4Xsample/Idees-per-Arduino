@@ -133,10 +133,11 @@ void setup()
         ESP.restart(); // Reinici de la ESPE
       }
     }
-
-    ApplicationMonitor.Dump(Serial);
-    ApplicationMonitor.EnableWatchdog(Watchdog::CApplicationMonitor::Timeout_4s);
+    
   }
+
+  ApplicationMonitor.Dump(Serial);
+  ApplicationMonitor.EnableWatchdog(Watchdog::CApplicationMonitor::Timeout_4s);
 
   // Inicialitzem el webhook de discord
   discord.begin(DISCORD_WEBHOOK);
