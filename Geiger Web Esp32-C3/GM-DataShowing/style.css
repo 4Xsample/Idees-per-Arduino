@@ -1,0 +1,43 @@
+@font-face {
+  font-family: "IBM Mono Plex";
+  src: url("fonts/IBMPlexMono-Regular.ttf");
+}
+
+body {
+  margin: 0;
+  background-color: #35373F;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222327;
+  padding: 10px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  height: 100%;
+}
+
+.logo {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.menu .button {
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-family: "IBM Mono Plex", sans-serif;
+}
