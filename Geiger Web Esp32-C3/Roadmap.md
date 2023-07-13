@@ -25,7 +25,7 @@
     
     - Valor de la intensitat de llum.
 
-- ☐ Incloure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.(hem optat per ntp)
+- ~ Incloure algun mecanisme per que la ESPE pugui saber la hora que es i tenir-ho en una variable.(hem optat per ntp)
 - ~ Incloure una comanda per poder reiniciar la ESPE usant una comanda per Serial
 - ~ Incloure un polsador per a reset (Pendent de muntar el proto)
 - ☐ Incloure una memòria que reculli cada valor i el guardi si no pot enviar les dades a la base de dades per poder enviar les dades tan bon punt tingui accés a la base de dades.

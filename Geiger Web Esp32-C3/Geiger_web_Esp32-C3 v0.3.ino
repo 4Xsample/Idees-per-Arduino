@@ -1,10 +1,9 @@
 // Llibreria per la conexió wifi
 #include <WiFi.h>
+// Llibreria per a NTP
+#include "time.h"
 // Llibreria per muntar un servidor web
 #include <WebServer.h>
-// Llibreries per muntar el client de NTP
-#include <esp_sntp.h>
-#include <TimeLib.h>
 // Llibreria per poder enviar missatges de debug al discord
 #include <Discord_WebHook.h>
 // Llibreria que conté les credencials per configurar la nostre ESPE
@@ -22,6 +21,11 @@ const char *password = WIFI_PASSWORD;
 // const char* gateway = "192.168.1.1"; // Adreça de la porta d'enllaç (encara no esta integrat)
 // const char* subnet = "255.255.255.0"; // Màscara de subxarxa (encara no esta integrat)
 // Sí, deixem-ho en DHCP, perquè qui necessita controlar la seva pròpia xarxa, veritat?
+
+// Constants per a NTP
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = 3600;
+const int   daylightOffset_sec = 3600;
 
 // Configuració del servidor web
 WebServer servidor(80); // En cas d'usar DHCP
@@ -71,41 +75,6 @@ int sensorState = LOW;
 int lastSensorState = LOW;
 unsigned long lastPulseTime = 0;
 
-// Declaracions de variables per NTP
-struct tm *tm;
-int d_year;
-int d_mon;
-int d_mday;
-int d_hour;
-int d_min;
-int d_sec;
-int d_wday;
-static const char *weekStr[7] = {
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat"};
-
-const char *ntpServer = "fr.pool.ntp.org";
-const long gmtOffset_sec = 7200;
-const int daylightOffset_sec = 0;
-
-// Cridem la funció que obté la data i hora del servidor NTP
-void wifisyncjst()
-{
-  // Sincronització de l’rellotge intern amb CEST
-  // Obté CEST a traves de NTP
-  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-  delay(500);
-  // Espera fins que l’hora de l’rellotge intern coincideixi amb l’hora NTP
-  while (sntp_get_sync_status() == SNTP_SYNC_STATUS_RESET)
-  {
-    delay(500);
-  }
-}
 
 // Declarem el link del webhook de discord
 Discord_Webhook discord;
@@ -118,6 +87,18 @@ void setup()
 
   pinMode(SENSOR_PIN, INPUT);
   Serial.begin(9600);
+
+  // Iniciem NTP
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+
+  // Delcarem la nostra funció per a obtenir la data i l'hora
+  void printLocalTime(){
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Error a l'obtenir la data");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 
   void comandaReset()
   {
@@ -171,6 +152,9 @@ void loop()
 {
 
   ApplicationMonitor.IAmAlive();
+
+  // Imprimim la data actual
+  PrintLocalTime();
 
   comandaReset(); // Comprovem si s'ha introduit la comanda de reset
 
