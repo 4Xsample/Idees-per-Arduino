@@ -185,6 +185,10 @@ void loop()
       Serial.println(cpm / 151);
       //      discord.send(String(cpm / 151));
       discord.send("µSv/h: " + String(cpm / 151));
+      /*
+
+      De moment això es queda comentat fins que decidim com fer servir i implementar la nova aplicació de ntp
+
       // Obté el temps actual en format time_t
       time_t t = time(NULL);
       // Converteix el temps time_t a una estructura tm
@@ -209,6 +213,7 @@ void loop()
       Serial.print(dts);
       discord.send("Data: ");
       discord.send(dts);
+      */
     }
     lastPulseTime = millis();
   }
